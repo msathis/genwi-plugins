@@ -1,0 +1,116 @@
+apply plugin: 'com.android.library'
+apply plugin: "com.github.dcendents.android-maven"
+apply plugin: 'com.jfrog.bintray'
+
+def versionCode = '1.0.4'
+def siteUrl = 'https://github.com/msathis/genwi-plugins'
+def gitUrl = 'https://github.com/msathis/genwi-plugins.git'
+
+group = "com.genwi.plugin"
+project.version = versionCode
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion "23.0.2"
+
+    defaultConfig {
+        minSdkVersion 16
+        targetSdkVersion 23
+        versionName versionCode
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:1.0.0'
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.6'
+        classpath 'com.github.dcendents:android-maven-gradle-plugin:1.3'
+    }
+}
+
+dependencies {
+    compile 'io.reactivex:rxandroid:1.1.0'
+    compile 'io.reactivex:rxjava:1.1.0'
+    provided 'org.atteo.classindex:classindex:3.4'
+
+    testCompile 'junit:junit:4.12'
+    provided 'com.android.support:appcompat-v7:23.1.1'
+
+}
+
+bintray {
+    user = 'msathis'
+    key = 'cfebdbd7da89a55a4cf6d39cd280af4ad81a8758'
+
+    configurations = ['archives'] //When uploading configuration files
+    pkg {
+        repo = 'android'
+        userOrg = 'genwi'
+        name = 'plugin'
+        desc = 'Genwi Plugin Development Guide'
+        websiteUrl = siteUrl
+        issueTrackerUrl = 'https://github.com/msathis/genwi-plugins/issues'
+        vcsUrl = gitUrl
+        licenses = ['Apache-2.0']
+        labels = ['aar', 'android', 'plugin']
+        publicDownloadNumbers = true
+
+        version {
+            name = versionCode
+            released  = new Date()
+        }
+    }
+}
+
+install {
+    repositories.mavenInstaller {
+        pom {
+            project {
+                packaging 'aar'
+                name 'Genwi Plugin Development'
+                url siteUrl
+                licenses {
+                    license {
+                        name 'The Apache Software License, Version 2.0'
+                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+                developers {
+                    developer {
+                        id 'msathis'
+                        name 'Sathis Kumar'
+                        email 'sathis62@gmail.com'
+                    }
+                }
+                scm {
+                    connection gitUrl
+                    developerConnection gitUrl
+                    url siteUrl
+
+                }
+            }
+        }
+    }
+}
+
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
+}
+
+artifacts {
+    archives sourcesJar
+}
+
+task findConventions << {
+    println project.getConvention()
+}
