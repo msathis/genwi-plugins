@@ -2,7 +2,7 @@ apply plugin: 'com.android.library'
 apply plugin: "com.github.dcendents.android-maven"
 apply plugin: 'com.jfrog.bintray'
 
-def versionCode = '1.2.0'
+def versionCode = '1.3.0'
 def siteUrl = 'https://github.com/msathis/genwi-plugins'
 def gitUrl = 'https://github.com/msathis/genwi-plugins.git'
 

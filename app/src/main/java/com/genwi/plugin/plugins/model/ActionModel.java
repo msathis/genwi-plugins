@@ -5,14 +5,16 @@ import org.json.JSONObject;
 
 import java.io.Serializable;
 import java.lang.ref.WeakReference;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
  * Author: sathis
  * Last Updated: 08/03/16.
  */
-public class ActionModel {
+public class ActionModel implements Serializable {
 
+    public Map<String, String> config = new HashMap<String, String>();
     public String type;
     public String action;
     public String callback;
