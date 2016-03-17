@@ -1,10 +1,6 @@
 package com.genwi.plugin.plugins.model;
 
-import android.webkit.WebView;
-import org.json.JSONObject;
-
 import java.io.Serializable;
-import java.lang.ref.WeakReference;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,7 +10,7 @@ import java.util.Map;
  */
 public class ActionModel implements Serializable {
 
-    public Map<String, String> config = new HashMap<String, String>();
+    public Map<String, Object> config = new HashMap<String, Object>();
     public String type;
     public String action;
     public String callback;
@@ -25,7 +21,7 @@ public class ActionModel implements Serializable {
     public boolean resultPending = false;
 
     public int handledCount = 0;
-    public JSONObject result;
+    public Map<String, Object> result;
 
     public static ActionModel from(Map<String, String> params) {
         ActionModel model = new ActionModel();

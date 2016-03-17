@@ -32,13 +32,12 @@ public class Pluggable {
     public Pluggable(Activity activity, Action1<ActionModel> observer) {
         mContext = activity;
         mGlobalObserver = observer;
+        Thread.currentThread().setContextClassLoader(getClass().getClassLoader());
         processAnnotations();
     }
 
-    public void publish(ActionModel... models) {
-        for (ActionModel model : models) {
-            RxEventBus.getInstance(mGlobalObserver).post(model);
-        }
+    public void publish(ActionModel model) {
+        RxEventBus.getInstance(mGlobalObserver).post(model);
     }
 
     private void processAnnotations() {
