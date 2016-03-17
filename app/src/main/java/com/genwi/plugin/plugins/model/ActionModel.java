@@ -1,5 +1,7 @@
 package com.genwi.plugin.plugins.model;
 
+import org.json.JSONObject;
+
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
@@ -21,7 +23,7 @@ public class ActionModel implements Serializable {
     public boolean resultPending = false;
 
     public int handledCount = 0;
-    public Map<String, Object> result;
+    public JSONObject result = new JSONObject();
 
     public static ActionModel from(Map<String, String> params) {
         ActionModel model = new ActionModel();
